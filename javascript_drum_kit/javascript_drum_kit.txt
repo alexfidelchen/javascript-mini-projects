@@ -1,0 +1,25 @@
+JAVASCRIPT DRUM KIT 
+
+- There's a keycode associated with each keyboard key. 
+
+- So what we're trying to do is to add a class when 
+
+- An EVENTLISTENER inteface represents an object that can handle 
+	an event. 
+	
+- In this exercise, I practiced using event listeners 
+	and audio objects. 
+	
+- A click event is an event that fires when the user clicks 
+	something. 
+	
+- key.classList.toggle() only partially works, you have to
+	click the key again to remove the playing class. 
+	
+- Notice when a transition happens, each change is considered 
+	an event. 
+	
+- Put all the logic from addEventListener into its own function 
+	for cleaner code. 
+	
+- 

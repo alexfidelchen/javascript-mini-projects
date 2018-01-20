@@ -1,0 +1,106 @@
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <title> JavaScript Drum Kit </title> 
+	<link rel="stylesheet" href="styles/css/style.css">
+  </head> 
+  <body> 
+	<div class="keys">
+	  <div data-key="65" class="key">
+		<kbd> A </kbd> 
+		<span class="sound"> clap </span>
+		</div>
+		
+	  <div data-key="83" class="key">
+		<kbd> S </kbd> 
+		<span class="sound"> hihat </span>
+	  </div>
+		
+	  <div data-key="68" class="key">
+		<kbd> D </kbd> 
+		<span class="sound"> kick </span>
+	  </div>
+		
+	  <div data-key="70" class="key">
+		<kbd> F </kbd> 
+		<span class="sound"> openhat </span>
+	  </div>
+	</div>
+	
+	<audio data-key="65" src="styles/sounds/clap.wav"></audio>
+	<audio data-key="83" src="styles/sounds/hihat.wav"></audio>
+	<audio data-key="68" src="styles/sounds/kick.wav"></audio>
+	<audio data-key="70" src="styles/sounds/openhat.wav"></audio>
+	<audio data-key="71" src="styles/sounds/boom.wav"></audio>
+	<audio data-key="72" src="styles/sounds/ride.wav"></audio>
+	<audio data-key="74" src="styles/sounds/snare.wav"></audio>
+	<audio data-key="75" src="styles/sounds/tom.wav"></audio>
+	<audio data-key="76" src="styles/sounds/tink.wav"></audio>
+	
+	<script> 
+		/* So we are listening (looking for) an the "keydown" event 
+			(action) to occur, and when that happens, run the function 
+			that's the second argument. 
+		*/
+		window.addEventListener('keydown', playSound);
+		
+		function playSound(e) {
+		//console.log(e.keyCode);
+		/* Since the event is an object, it has properties that you
+			can access. 
+		*/
+		
+		/* Now we're going to select the correct audio file to play 
+			with the key by using the data-key attribute. 
+		*/
+		
+		const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+		/* So audio is not capitalized because we don't know the 
+			of audio until run-time. 
+			
+			document.querySelector is an function that looks 
+			for a specific element in the first parameter. 
+			
+			Here, we are using an attribute selector. 
+		*/
+		/* If there is no audio, (audio is false but the exclamation 
+			mark makes it true), then stop the function. 
+		*/
+		/* Now let's select a corresponding key (key with the same keycode 
+			as the audio object. 
+		*/
+		const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+		
+		if(!audio) {
+			// Return nothing if you hit a hit a key without a keyCode. 
+			return;
+		}
+		
+		/* Without adjusting the current time, audio will not play again 
+			until the sound is finished, which is why we adjust the sound 
+			below. 
+			
+			audio.currentTime resets the audio object back to zero so we 
+			can play it even if the audio object already started playing. 
+		*/
+		audio.currentTime = 0;
+		audio.play();
+		console.log(audio, key);
+		key.classList.add("playing");
+		}
+		
+		// Once the transition is over, remove the ".playing" class. 
+		function removeTransition(e) {
+			if(e.propertyName !== 'transform'){
+				return; // Have the function do nothing. 
+			}
+			this.classList.remove('playing');
+		}
+		
+		// Selects all keys with the class ".key"
+		const keys = document.querySelectorAll(".key");
+		// When a transition ends, remove a class
+		keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+	</script>
+  </body>
+</html> 
